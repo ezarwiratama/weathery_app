@@ -9,6 +9,7 @@ import {
 import { fetchWeather } from "../services/api";
 import Navbar from "../components/Navbar";
 import WeatherMetrics from "../components/WeatherMetrics";
+import Footer from "../components/Footer";
 
 const UNSPLASH_ACCESS_KEY = "Mp2FxTbeNNnIMRQ0O-uwsWlktSVu6pTE6QTzt-lmZew";
 
@@ -107,10 +108,12 @@ const Forecast = () => {
         </Typography>
       </Box>
 
-      <Container sx={{ mt: 5 }}>
+      <Container sx={{ mt: 5, mb: 5 }}>
         <WeatherMetrics weather={weather} />
       </Container>
     
+        {/* Footer */}
+        <Footer/>
     </>
   );
 };
