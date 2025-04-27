@@ -17,7 +17,6 @@ const Dashboard = () => {
                 alert(error.message);
             }
         };
-
         getWeather();
     }, [city]);
 
