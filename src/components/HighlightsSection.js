@@ -1,6 +1,8 @@
 import React from "react";
 import { Box, Typography, Grid, Card, CardContent } from "@mui/material";
 import PublicIcon from '@mui/icons-material/Public'; // globe icon
+import FlashOnIcon from '@mui/icons-material/FlashOn';
+import CloudQueueIcon from '@mui/icons-material/CloudQueue';
 
 const features = [
   {
@@ -9,14 +11,14 @@ const features = [
     icon: <PublicIcon sx={{ fontSize: 40 }} />,
   },
   {
-    title: "Accurate Weather in 200,000+ Cities",
-    description: "Weathery brings real-time weather updates from cities all around the globe",
-    icon: <PublicIcon sx={{ fontSize: 40 }} />,
+    title: "Real-Time Weather Data",
+    description: "View current temperature, humidity, wind speed, and sky conditions. all in real time, right at your fingertips.",
+    icon: <CloudQueueIcon sx={{ fontSize: 40 }} />,
   },
   {
-    title: "Accurate Weather in 200,000+ Cities",
-    description: "Weathery brings real-time weather updates from cities all around the globe",
-    icon: <PublicIcon sx={{ fontSize: 40 }} />,
+    title: "Fast, Lightweight & Responsive",
+    description: "Built with React JS for a smooth and fast experience on any device.",
+    icon: <FlashOnIcon sx={{ fontSize: 40 }} />,
   },
 ];
 

@@ -1,13 +1,12 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Container, TextField, Button, Typography, AppBar, Toolbar, Box } from "@mui/material";
-import logo from "../assets/weathery-logo-no-bg.png";
+import { TextField, Button, Typography, Box } from "@mui/material";
 import background from "../assets/bg.jpg";
-import { styled, alpha } from '@mui/material/styles';
-import InputBase from '@mui/material/InputBase';
-import SearchIcon from '@mui/icons-material/Search';
 
+import Navbar from "../components/Navbar";
 import HighlightsSection from "../components/HighlightsSection";
+import Carousel from "../components/Carousel"
+import Footer from "../components/Footer";
 
 // LOGIN PAKE CLERK
 
@@ -17,108 +16,26 @@ const Home = () => {
 
     const handleSearch = () => {
         if (city.trim()) {
-            navigate(`/dashboard/${city}`);
+            navigate(`/forecast/${city}`);
         }
     };
-
-    const Search = styled('div')(({ theme }) => ({
-        position: 'relative',
-        borderRadius: theme.shape.borderRadius,
-        backgroundColor: alpha(theme.palette.common.white, 0.15),
-        '&:hover': {
-          backgroundColor: alpha(theme.palette.common.white, 0.25),
-        },
-        marginRight: theme.spacing(2),
-        marginLeft: 0,
-        width: '100%',
-        [theme.breakpoints.up('sm')]: {
-          marginLeft: theme.spacing(3),
-          width: 'auto',
-        },
-        color:'black',
-      }));
-
-    const SearchIconWrapper = styled('div')(({ theme }) => ({
-        padding: theme.spacing(0, 2),
-        height: '100%',
-        position: 'absolute',
-        pointerEvents: 'none',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        color: 'black',
-      }));
-
-    const StyledInputBase = styled(InputBase)(({ theme }) => ({
-        color: 'inherit',
-        border: '1px solid black',
-        borderRadius: '12px',
-        '& .MuiInputBase-input': {
-          padding: theme.spacing(1, 1, 1, 0),
-          // vertical padding + font size from searchIcon
-          paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-          transition: theme.transitions.create('width'),
-          width: '100%',
-          [theme.breakpoints.up('md')]: {
-            width: '20ch',
-          },
-          '&::placeholder': {
-            color: 'black', // Ganti dengan warna yang kamu inginkan
-            opacity: 1, // Pastikan opacity 1 agar warnanya terlihat
-        },
-        },
-      }));
-
-
 
     return (
         <Box
             sx={{
                 minHeight: "100vh",
-                // backgroundImage: `url(${background})`,
                 backgroundSize: "cover",
                 backgroundPosition: "center",
             }}
         >
-            {/* Header */}
-            <AppBar position="static" sx={{ backgroundColor: "#ffffff", boxShadow: 2 }}>
-                <Toolbar sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                    <img src={logo} alt="Weathery Logo" style={{ height: 40 }} />
-                    <Typography variant="h6" sx={{ flexGrow: 1, fontWeight: "bold", color: "#1976d2" }}>
-                        Weathery App
-                    </Typography>
-                    <Button color="inherit" sx={{ color: "black"}} onClick={() => navigate("/")}>Home</Button>
-                    <Button color="inherit" sx={{ color: "black"}} onClick={() => navigate("/forecast")}>Forecast</Button>
-                    <Search>
-                        <SearchIconWrapper>
-                            <SearchIcon />
-                        </SearchIconWrapper>
-                        <StyledInputBase
-                        placeholder="Search in site"
-                        inputProps={{ 'aria-label': 'search' }}
-                        />
-                    </Search>
-                    <Button color="inherit" sx={{ color: "black"}} onClick={() => navigate("/")}>Login</Button>
-                    <Button
-                        variant="contained"
-                        onClick={() => navigate("/register")}
-                        sx={{
-                            backgroundColor: "#000",
-                            color: "#fff",
-                            '&:hover': {
-                            backgroundColor: "#333",
-                            },
-                            ml: 1,
-                        }}
-                        >
-                        Register
-                    </Button>
-                </Toolbar>
-            </AppBar>
+            {/* Navbar */}
+            <Navbar />
 
+            {/* Content */}
             <Box
             sx={{
                 minHeight: "60vh",
+                backgroundColor: "rgba(0, 0, 0, 0.5)",
                 backgroundImage: `url(${background})`,
                 backgroundSize: "cover",
                 backgroundPosition: "center",
@@ -175,7 +92,15 @@ const Home = () => {
                 </Button>
             </Box>
             </Box>
+            
+            {/* higlight section */}
             <HighlightsSection />
+
+            {/* carousel section */}
+            <Carousel/>
+
+            {/* footer */}
+            <Footer />
         </Box>
     );
 };
