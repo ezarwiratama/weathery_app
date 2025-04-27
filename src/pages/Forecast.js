@@ -1,11 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import {
-  Container,
-  Typography,
-  CircularProgress,
-  Box,
-} from "@mui/material";
+import { Container, Typography, CircularProgress, Box } from "@mui/material";
 import { fetchWeather } from "../services/api";
 import Navbar from "../components/Navbar";
 import WeatherMetrics from "../components/WeatherMetrics";
@@ -83,7 +78,7 @@ const Forecast = () => {
   return (
     <>
       <Navbar />
-      
+
       {/* Section Background */}
       <Box
         sx={{
@@ -100,7 +95,11 @@ const Forecast = () => {
           p: 3,
         }}
       >
-        <Typography variant="h3" component="h1" sx={{ fontWeight: "bold", mb: 2 }}>
+        <Typography
+          variant="h3"
+          component="h1"
+          sx={{ fontWeight: "bold", mb: 2 }}
+        >
           {weather.name}, {weather.sys.country}
         </Typography>
         <Typography variant="h6">
@@ -111,9 +110,9 @@ const Forecast = () => {
       <Container sx={{ mt: 5, mb: 5 }}>
         <WeatherMetrics weather={weather} />
       </Container>
-    
-        {/* Footer */}
-        <Footer/>
+
+      {/* Footer */}
+      <Footer />
     </>
   );
 };
