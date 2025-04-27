@@ -18,7 +18,7 @@ const Footer = () => {
   return (
     <FooterContainer component="footer">
       <Typography variant="body2" color="text.primary">
-        Copyright © {currentYear} Weather News
+        Copyright © {currentYear} Weathery
       </Typography>
     </FooterContainer>
   );
