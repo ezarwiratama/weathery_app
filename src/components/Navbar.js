@@ -1,6 +1,6 @@
 import React from "react";
 import { AppBar, Toolbar, Typography, Button } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";  // import useLocation
 import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
@@ -55,6 +55,10 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 const Navbar = () => {
     const navigate = useNavigate();
+    const location = useLocation();  // ambil lokasi sekarang
+
+    // kondisi tampilkan search bar hanya jika url mengandung /forecast
+    const showSearchBar = location.pathname.includes('/forecast');
 
     return (
         <AppBar position="static" sx={{ backgroundColor: "#ffffff", boxShadow: 2 }}>
@@ -65,16 +69,18 @@ const Navbar = () => {
                 </Typography>
                 <Button color="inherit" sx={{ color: "black" }} onClick={() => navigate("/")}>Home</Button>
                 <Button color="inherit" sx={{ color: "black" }} onClick={() => navigate("/forecast/jakarta")}>Forecast</Button>
-                <Search>
-                    <SearchIconWrapper>
-                        <SearchIcon />
-                    </SearchIconWrapper>
-                    <StyledInputBase
-                        placeholder="Search City"
-                        inputProps={{ 'aria-label': 'search' }}
-                    />
-                </Search>
-                <Button color="inherit" sx={{ color: "black" }} onClick={() => navigate("/")}>Login</Button>
+                {showSearchBar && (
+                    <Search>
+                        <SearchIconWrapper>
+                            <SearchIcon />
+                        </SearchIconWrapper>
+                        <StyledInputBase
+                            placeholder="Search City"
+                            inputProps={{ 'aria-label': 'search' }}
+                        />
+                    </Search>
+                )}
+                <Button color="inherit" sx={{ color: "black" }} onClick={() => navigate("/login")}>Login</Button>
                 <Button
                     variant="contained"
                     onClick={() => navigate("/register")}

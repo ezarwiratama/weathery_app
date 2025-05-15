@@ -31,7 +31,7 @@ const Home = () => {
             {/* Navbar */}
             <Navbar />
 
-            {/* Content */}
+            {/* first Content */}
             <Box
             sx={{
                 minHeight: "60vh",
@@ -47,6 +47,20 @@ const Home = () => {
                 px: 2,
             }}
             >
+
+            {/* Overlay */}
+            {/* <Box
+                sx={{
+                position: "absolute",
+                top: 0,
+                left: 0,
+                width: "100%",
+                height: "100%",
+                backgroundColor: "rgba(0, 0, 0, 0.5)",
+                zIndex: 1,
+                }}
+            /> */}
+
             <Typography
                 variant="h3"
                 component="h1"
