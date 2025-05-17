@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Container, Typography, CircularProgress, Box } from "@mui/material";
-import { fetchWeather } from "../services/api";
+import { fetchWeather, fetchForecast } from "../services/api";
 import Navbar from "../components/Navbar";
 import WeatherMetrics from "../components/WeatherMetrics";
+import CurrentWeather from "../components/CurrentWeather";
+import UpcomingWeather from "../components/UpcomingWeather";
+import HourlyForecastChart from "../components/HourlyForecastChart";
 import Footer from "../components/Footer";
 
 const UNSPLASH_ACCESS_KEY = "Mp2FxTbeNNnIMRQ0O-uwsWlktSVu6pTE6QTzt-lmZew";
@@ -11,6 +14,7 @@ const UNSPLASH_ACCESS_KEY = "Mp2FxTbeNNnIMRQ0O-uwsWlktSVu6pTE6QTzt-lmZew";
 const Forecast = () => {
   const { city } = useParams();
   const [weather, setWeather] = useState(null);
+  const [forecastData, setForecastData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [backgroundImage, setBackgroundImage] = useState("");
 
@@ -18,7 +22,9 @@ const Forecast = () => {
     const getWeather = async () => {
       try {
         const data = await fetchWeather(city);
+        const forecast = await fetchForecast(city);
         setWeather(data);
+        setForecastData(forecast);  
       } catch (error) {
         alert(error.message);
       } finally {
@@ -108,7 +114,10 @@ const Forecast = () => {
       </Box>
 
       <Container sx={{ mt: 5, mb: 5 }}>
+        <CurrentWeather weather={weather} />
+        <UpcomingWeather weather={forecastData} />
         <WeatherMetrics weather={weather} />
+        <HourlyForecastChart forecast={forecastData} />
       </Container>
 
       {/* Footer */}

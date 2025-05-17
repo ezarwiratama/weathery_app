@@ -34,7 +34,7 @@ const HighlightsSection = () => {
           <Grid item xs={12} sm={6} md={4} key={index}>
             <Card
               elevation={1}
-              sx={{ height: "100%", borderRadius: 2, px: 2, py: 3 }}
+              sx={{ height: "180px", borderRadius: 2, px: 2, py: 3 }}
             >
               <CardContent sx={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 1 }}>
                 {feature.icon}
