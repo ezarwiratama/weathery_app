@@ -30,7 +30,9 @@ const Carousel = () => {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        height: '80vh', // Vertikal center
+        height: '80vh',
+        p: 2,
+        mb: 2,
       }}
     >
       <Box

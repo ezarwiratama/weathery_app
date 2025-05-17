@@ -9,6 +9,7 @@ import {
 } from '@mui/material';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import { registerUser } from '../services/api';
 
 const Register = () => {
     const [form, setForm] = useState({
@@ -26,19 +27,24 @@ const Register = () => {
         setSuccess('');
     };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        if (form.password !== form.confirmPassword) {
-            setError('Passwords do not match');
-            return;
-        }
-        setSuccess('Registration successful!');
-        setForm({
-            username: '',
-            email: '',
-            password: '',
-            confirmPassword: '',
+    const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (form.password !== form.confirmPassword) {
+        setError('Passwords do not match');
+        return;
+    }
+
+    try {
+        const res = await registerUser({
+        username: form.username,
+        email: form.email,
+        password: form.password,
         });
+        setSuccess(res.message);
+        setForm({ username: '', email: '', password: '', confirmPassword: '' });
+    } catch (err) {
+        setError(err.message || 'Registration failed');
+    }
     };
 
     return (

@@ -42,11 +42,11 @@ const Forecast = () => {
           setBackgroundImage(data.results[0].urls.regular);
         } else {
           // fallback default gambar
-          setBackgroundImage("https://source.unsplash.com/1600x900/?city");
+          setBackgroundImage("https://images.unsplash.com/photo-1579003593419-98f949b9398f?q=80&w=1473&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
         }
       } catch (error) {
         console.error("Failed to fetch background image:", error);
-        setBackgroundImage("https://source.unsplash.com/1600x900/?city");
+        setBackgroundImage("https://images.unsplash.com/photo-1579003593419-98f949b9398f?q=80&w=1473&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
       }
     };
 
@@ -84,7 +84,6 @@ const Forecast = () => {
   return (
     <>
       <Navbar />
-
       {/* Section Background */}
       <Box
         sx={{

@@ -1,30 +1,50 @@
 import React, { useState } from 'react';
-import { Container, TextField, Button, Typography, Grid, Box, Link } from '@mui/material';
+import { Container, TextField, Button, Typography, Grid, Box, Link, Snackbar, Alert } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import { loginUser } from '../services/api';
 
 const Login = () => {
     const navigate = useNavigate();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+    const [openSnackbar, setOpenSnackbar] = useState(false);
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         if (!username || !password) {
             setError('Please enter both username and password.');
             return;
         }
-        setError('');
-        alert('Logged in!');
+
+        try {
+            const res = await loginUser({ username, password });
+
+            // Simpan data login ke localStorage
+            localStorage.setItem('token', res.token);
+            localStorage.setItem('username', username); // Simpan username
+
+            setError('');
+            setOpenSnackbar(true);
+        } catch (err) {
+            setError(err.message || 'Login failed');
+        }
+    };
+
+    const handleCloseSnackbar = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setOpenSnackbar(false);
+        navigate('/');
     };
 
     return (
         <Box display="flex" flexDirection="column" minHeight="100vh">
             <Navbar />
 
-            {/* Main content area */}
             <Box
                 component="main"
                 flex={1}
@@ -70,7 +90,6 @@ const Login = () => {
                             </Typography>
                         )}
 
-                        {/* Text "Don't have an account? Register" */}
                         <Box mt={3} textAlign="center">
                             <Typography variant="body2">
                                 Don’t have an account?{' '}
@@ -85,10 +104,7 @@ const Login = () => {
                             </Typography>
                         </Box>
 
-                        <Box mt={4} display="flex" justifyContent="center" gap={2} flexWrap="wrap">
-                            <Button variant="outlined" color="inherit">
-                                Forgot Password
-                            </Button>
+                        <Box mt={4} display="flex" justifyContent="center">
                             <Button
                                 type="submit"
                                 variant="contained"
@@ -102,6 +118,17 @@ const Login = () => {
             </Box>
 
             <Footer />
+
+            <Snackbar
+                open={openSnackbar}
+                autoHideDuration={2000}
+                onClose={handleCloseSnackbar}
+                anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+            >
+                <Alert onClose={handleCloseSnackbar} severity="success" sx={{ width: '100%' }}>
+                    Login berhasil!
+                </Alert>
+            </Snackbar>
         </Box>
     );
 };

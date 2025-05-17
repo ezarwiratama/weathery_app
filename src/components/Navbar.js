@@ -1,10 +1,11 @@
 import React from "react";
 import { AppBar, Toolbar, Typography, Button } from "@mui/material";
-import { useNavigate, useLocation } from "react-router-dom";  // import useLocation
+import { useNavigate, useLocation } from "react-router-dom";
 import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
 import logo from "../assets/weathery-logo-no-bg.png";
+import ProfileDropdown from './ProfileDropdown';
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -55,9 +56,11 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 const Navbar = () => {
     const navigate = useNavigate();
-    const location = useLocation();  // ambil lokasi sekarang
+    const location = useLocation();
 
-    // kondisi tampilkan search bar hanya jika url mengandung /forecast
+    const username = localStorage.getItem('username');
+    const isLoggedIn = !!username;
+
     const showSearchBar = location.pathname.includes('/forecast');
 
     return (
@@ -69,6 +72,7 @@ const Navbar = () => {
                 </Typography>
                 <Button color="inherit" sx={{ color: "black" }} onClick={() => navigate("/")}>Home</Button>
                 <Button color="inherit" sx={{ color: "black" }} onClick={() => navigate("/forecast/jakarta")}>Forecast</Button>
+
                 {showSearchBar && (
                     <Search>
                         <SearchIconWrapper>
@@ -80,21 +84,28 @@ const Navbar = () => {
                         />
                     </Search>
                 )}
-                <Button color="inherit" sx={{ color: "black" }} onClick={() => navigate("/login")}>Login</Button>
-                <Button
-                    variant="contained"
-                    onClick={() => navigate("/register")}
-                    sx={{
-                        backgroundColor: "#000",
-                        color: "#fff",
-                        '&:hover': {
-                            backgroundColor: "#333",
-                        },
-                        ml: 1,
-                    }}
-                >
-                    Register
-                </Button>
+
+                {isLoggedIn ? (
+                    <ProfileDropdown username={username} />
+                ) : (
+                    <>
+                        <Button color="inherit" sx={{ color: "black" }} onClick={() => navigate("/login")}>Login</Button>
+                        <Button
+                            variant="contained"
+                            onClick={() => navigate("/register")}
+                            sx={{
+                                backgroundColor: "#000",
+                                color: "#fff",
+                                '&:hover': {
+                                    backgroundColor: "#333",
+                                },
+                                ml: 1,
+                            }}
+                        >
+                            Register
+                        </Button>
+                    </>
+                )}
             </Toolbar>
         </AppBar>
     );
