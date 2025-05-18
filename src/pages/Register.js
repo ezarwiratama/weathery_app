@@ -1,146 +1,239 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
-    Container,
-    TextField,
-    Button,
-    Typography,
-    Grid,
-    Box
-} from '@mui/material';
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
-import { registerUser } from '../services/api';
+  Container,
+  TextField,
+  Button,
+  Typography,
+  Grid,
+  Box,
+  InputAdornment,
+  IconButton,
+  Snackbar,
+  Alert,
+} from "@mui/material";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
+import { registerUser } from "../services/api";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
-    const [form, setForm] = useState({
-        username: '',
-        email: '',
-        password: '',
-        confirmPassword: '',
-    });
-    const [error, setError] = useState('');
-    const [success, setSuccess] = useState('');
+  const navigate = useNavigate();
+  const [form, setForm] = useState({
+    username: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [openSuccessSnackbar, setOpenSuccessSnackbar] = useState(false);
+  const [openErrorSnackbar, setOpenErrorSnackbar] = useState(false);
 
-    const handleChange = (e) => {
-        setForm({ ...form, [e.target.name]: e.target.value });
-        setError('');
-        setSuccess('');
-    };
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+    setError("");
+    setSuccess("");
+  };
 
-    const handleSubmit = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (form.password !== form.confirmPassword) {
-        setError('Passwords do not match');
-        return;
+      setError("Passwords do not match");
+      setOpenErrorSnackbar(true);
+      return;
     }
 
     try {
-        const res = await registerUser({
+      const res = await registerUser({
         username: form.username,
         email: form.email,
         password: form.password,
-        });
-        setSuccess(res.message);
-        setForm({ username: '', email: '', password: '', confirmPassword: '' });
+      });
+      setSuccess(res.message);
+      setOpenSuccessSnackbar(true);
+      setForm({ username: "", email: "", password: "", confirmPassword: "" });
     } catch (err) {
-        setError(err.message || 'Registration failed');
+      setError(err.message || "Registration failed");
+      setOpenErrorSnackbar(true);
     }
-    };
+  };
 
-    return (
-        <>
-            <Navbar />
-            <Box
-                display="flex"
-                justifyContent="center"
-                alignItems="center"
-                minHeight="calc(100vh - 160px)" // 100vh dikurangi tinggi navbar+footer
-                py={8} // padding vertical
-            >
-                <Container maxWidth="sm">
-                    <Typography variant="h4" align="center" fontWeight="bold" gutterBottom>
-                        Register
-                    </Typography>
-                    <Typography variant="body1" align="center" color="textSecondary" mb={4}>
-                        Create Your Account
-                    </Typography>
-                    <Box component="form" onSubmit={handleSubmit}>
-                        <Grid container spacing={3}>
-                            <Grid item xs={12}>
-                                <TextField
-                                    fullWidth
-                                    label="Username"
-                                    name="username"
-                                    value={form.username}
-                                    onChange={handleChange}
-                                    variant="outlined"
-                                    required
-                                />
-                            </Grid>
-                            <Grid item xs={12}>
-                                <TextField
-                                    fullWidth
-                                    label="Email"
-                                    name="email"
-                                    type="email"
-                                    value={form.email}
-                                    onChange={handleChange}
-                                    variant="outlined"
-                                    required
-                                />
-                            </Grid>
-                            <Grid item xs={12}>
-                                <TextField
-                                    fullWidth
-                                    label="Password"
-                                    name="password"
-                                    type="password"
-                                    value={form.password}
-                                    onChange={handleChange}
-                                    variant="outlined"
-                                    required
-                                />
-                            </Grid>
-                            <Grid item xs={12}>
-                                <TextField
-                                    fullWidth
-                                    label="Confirm Password"
-                                    name="confirmPassword"
-                                    type="password"
-                                    value={form.confirmPassword}
-                                    onChange={handleChange}
-                                    variant="outlined"
-                                    required
-                                />
-                            </Grid>
-                        </Grid>
+  const handleCloseSuccessSnackbar = (event, reason) => {
+    if (reason === "clickaway") return;
+    setOpenSuccessSnackbar(false);
+    navigate("/login");
+  };
 
-                        {error && (
-                            <Typography color="error" align="center" mt={2}>
-                                {error}
-                            </Typography>
-                        )}
-                        {success && (
-                            <Typography color="success.main" align="center" mt={2}>
-                                {success}
-                            </Typography>
-                        )}
+  const handleCloseErrorSnackbar = () => {
+    setOpenErrorSnackbar(false);
+  };
 
-                        <Box mt={4} display="flex" justifyContent="center">
-                            <Button
-                                type="submit"
-                                variant="contained"
-                                sx={{ backgroundColor: 'black', color: 'white' }}
-                            >
-                                Register
-                            </Button>
-                        </Box>
-                    </Box>
-                </Container>
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      handleSubmit(e);
+    }
+  };
+
+  return (
+    <>
+      <Navbar />
+      <Box
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        minHeight="calc(100vh - 160px)"
+        py={8}
+      >
+        <Container maxWidth="sm">
+          <Typography
+            variant="h4"
+            align="center"
+            fontWeight="bold"
+            gutterBottom
+          >
+            Register
+          </Typography>
+          <Typography
+            variant="body1"
+            align="center"
+            color="textSecondary"
+            mb={4}
+          >
+            Create Your Account
+          </Typography>
+          <Box
+            component="form"
+            onSubmit={handleSubmit}
+            onKeyPress={handleKeyPress}
+          >
+            <Grid container spacing={3}>
+              <Grid item xs={12}>
+                <TextField
+                  fullWidth
+                  label="Username"
+                  name="username"
+                  value={form.username}
+                  onChange={handleChange}
+                  variant="outlined"
+                  required
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  fullWidth
+                  label="Email"
+                  name="email"
+                  type="email"
+                  value={form.email}
+                  onChange={handleChange}
+                  variant="outlined"
+                  required
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  fullWidth
+                  label="Password"
+                  name="password"
+                  type={showPassword ? "text" : "password"}
+                  value={form.password}
+                  onChange={handleChange}
+                  variant="outlined"
+                  required
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton
+                          onClick={() => setShowPassword(!showPassword)}
+                          edge="end"
+                        >
+                          {showPassword ? <VisibilityOff /> : <Visibility />}
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                  }}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  fullWidth
+                  label="Confirm Password"
+                  name="confirmPassword"
+                  type={showConfirmPassword ? "text" : "password"}
+                  value={form.confirmPassword}
+                  onChange={handleChange}
+                  variant="outlined"
+                  required
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton
+                          onClick={() =>
+                            setShowConfirmPassword(!showConfirmPassword)
+                          }
+                          edge="end"
+                        >
+                          {showConfirmPassword ? (
+                            <VisibilityOff />
+                          ) : (
+                            <Visibility />
+                          )}
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                  }}
+                />
+              </Grid>
+            </Grid>
+
+            <Box mt={4} display="flex" justifyContent="center">
+              <Button
+                type="submit"
+                variant="contained"
+                sx={{ backgroundColor: "black", color: "white" }}
+              >
+                Register
+              </Button>
             </Box>
-            <Footer />
-        </>
-    );
+          </Box>
+        </Container>
+      </Box>
+      <Footer />
+
+      <Snackbar
+        open={openSuccessSnackbar}
+        autoHideDuration={3000}
+        onClose={handleCloseSuccessSnackbar}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+      >
+        <Alert
+          onClose={handleCloseSuccessSnackbar}
+          severity="success"
+          sx={{ width: "100%" }}
+        >
+          {success}
+        </Alert>
+      </Snackbar>
+
+      <Snackbar
+        open={openErrorSnackbar}
+        autoHideDuration={6000}
+        onClose={handleCloseErrorSnackbar}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+      >
+        <Alert
+          onClose={handleCloseErrorSnackbar}
+          severity="error"
+          sx={{ width: "100%" }}
+        >
+          {error}
+        </Alert>
+      </Snackbar>
+    </>
+  );
 };
 
 export default Register;
