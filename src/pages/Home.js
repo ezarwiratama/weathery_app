@@ -2,13 +2,10 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { TextField, Button, Typography, Box } from "@mui/material";
 import background from "../assets/bg.jpg";
-
 import Navbar from "../components/Navbar";
 import HighlightsSection from "../components/HighlightsSection";
 import Carousel from "../components/Carousel"
 import Footer from "../components/Footer";
-
-// LOGIN PAKE CLERK
 
 const Home = () => {
     const [city, setCity] = useState("");
@@ -68,26 +65,33 @@ const Home = () => {
             >
                 Today's Weather
             </Typography>
-            <Typography variant="h6" sx={{ color: "white", mb: 3 }}>
+            <Typography variant="h6" sx={{ color: "white", mb: 2 }}>
                 Check out the current weather conditions
             </Typography>
 
             <Box
                 sx={{
-                display: "flex",
-                flexDirection: { xs: "column", sm: "row" },
+                display: "grid",
                 gap: 2,
-                backgroundColor: "rgba(255,255,255,0.9)",
                 padding: 2,
                 borderRadius: 2,
                 }}
             >
-                <TextField
+               <TextField
                 placeholder="Enter Location..."
                 variant="outlined"
                 value={city}
                 onChange={(e) => setCity(e.target.value)}
-                sx={{ backgroundColor: "white", borderRadius: 1, width: { xs: "100%", sm: "300px" } }}
+                onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                    handleSearch();
+                    }
+                }}
+                sx={{
+                    backgroundColor: "white",
+                    borderRadius: 2,
+                    width: { xs: "100%", sm: "500px" },
+                }}
                 />
                 <Button
                 variant="contained"
@@ -95,8 +99,11 @@ const Home = () => {
                 sx={{
                     backgroundColor: "black",
                     color: "white",
-                    borderRadius: "8px",
+                    borderRadius: 2,
                     px: 4,
+                    justifySelf: "center",
+                    width: "300px",
+                    mt: 1,
                     '&:hover': {
                     backgroundColor: "#333",
                     },
