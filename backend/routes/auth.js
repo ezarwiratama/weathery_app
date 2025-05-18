@@ -38,4 +38,52 @@ router.post('/login', async (req, res) => {
     }
 });
 
+// auth.js - add these routes
+
+// Get user profile
+router.get('/profile', async (req, res) => {
+  try {
+    const token = req.headers.authorization?.split(' ')[1];
+    if (!token) return res.status(401).json({ message: 'No token provided' });
+
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const user = await User.findById(decoded.id).select('-favoriteCities');
+    
+    if (!user) return res.status(404).json({ message: 'User not found' });
+    
+    res.json(user);
+  } catch (err) {
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+// Update user profile
+router.put('/profile', async (req, res) => {
+  try {
+    const token = req.headers.authorization?.split(' ')[1];
+    if (!token) return res.status(401).json({ message: 'No token provided' });
+
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const { username, email, password } = req.body;
+
+    let updateData = { username, email };
+    
+    // Only update password if it's provided
+    if (password) {
+      const hashedPassword = await bcrypt.hash(password, 10);
+      updateData.password = hashedPassword;
+    }
+
+    const updatedUser = await User.findByIdAndUpdate(
+      decoded.id,
+      updateData,
+      { new: true }
+    ).select('-password -favoriteCities');
+
+    res.json(updatedUser);
+  } catch (err) {
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
 module.exports = router;
