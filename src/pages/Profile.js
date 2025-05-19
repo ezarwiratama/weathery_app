@@ -76,6 +76,9 @@ const Profile = () => {
       const token = localStorage.getItem("token");
       if (!token) return;
       await updateProfile(profileData, token);
+
+      localStorage.setItem("username", profileData.username);
+
       setSnackbarMessage("Profil berhasil diperbarui!");
       setOpenSuccessSnackbar(true);
       setEditableFields({
@@ -89,6 +92,7 @@ const Profile = () => {
       setSnackbarMessage("Gagal memperbarui profil!");
       setOpenErrorSnackbar(true);
     }
+    window.location.reload();
   };
 
   const handleKeyPress = (e) => {

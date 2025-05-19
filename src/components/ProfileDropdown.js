@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 import {
   Avatar,
@@ -11,9 +11,10 @@ import {
 } from "@mui/material";
 import Logout from "@mui/icons-material/Logout";
 
-const ProfileDropdown = ({ username }) => {
+const ProfileDropdown = () => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
+  const [username, setUsername] = React.useState(localStorage.getItem("username"));
   const navigate = useNavigate();
 
   const handleClick = (event) => {
@@ -29,6 +30,17 @@ const ProfileDropdown = ({ username }) => {
     navigate("/");
     window.location.reload(); // Untuk refresh Navbar
   };
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const storedUsername = localStorage.getItem("username");
+      if (storedUsername !== username) {
+        setUsername(storedUsername);
+      }
+    }, 1000); // Periksa perubahan username tiap detik
+
+    return () => clearInterval(interval);
+  }, [username]);
 
   return (
     <React.Fragment>
