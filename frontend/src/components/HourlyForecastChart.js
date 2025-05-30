@@ -5,31 +5,40 @@ import {
   Typography,
   Box
 } from "@mui/material";
+// import {
+//   Chart as ChartJS,
+//   BarController,
+//   BarElement,
+//   CategoryScale,
+//   LinearScale,
+//   LineElement,
+//   PointElement,
+//   Tooltip,
+//   Legend,
+//   registerables
+// } from "chart.js";
+// import { Chart } from "react-chartjs-2";
+
+// ChartJS.register(
+//   registerables,
+//   BarController,
+//   BarElement,
+//   CategoryScale,
+//   LinearScale,
+//   LineElement,
+//   PointElement,
+//   Tooltip,
+//   Legend
+// );
+
 import {
   Chart as ChartJS,
-  BarController,
-  BarElement,
-  CategoryScale,
-  LinearScale,
-  LineElement,
-  PointElement,
-  Tooltip,
-  Legend,
   registerables
 } from "chart.js";
 import { Chart } from "react-chartjs-2";
 
-ChartJS.register(
-  registerables,
-  BarController,
-  BarElement,
-  CategoryScale,
-  LinearScale,
-  LineElement,
-  PointElement,
-  Tooltip,
-  Legend
-);
+// Register semua komponen Chart.js secara otomatis
+ChartJS.register(...registerables);
 
 const HourlyForecastChart = ({ forecast }) => {
   if (!forecast || !forecast.list) return null;
