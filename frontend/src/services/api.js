@@ -2,7 +2,7 @@ import axios from "axios";
 
 const WEATHER_API_KEY = "958dc09de91b935b6f25d17fec6b4f8b";
 const WEATHER_BASE_URL = "https://api.openweathermap.org/data/2.5";
-const BACKEND_BASE_URL = "http://localhost:5000/api"; // Ganti kalau deploy
+const BACKEND_BASE_URL = "https://weatheryapp-production.up.railway.app"; // Ganti kalau deploy
 
 // ==================== WEATHER APIs ====================
 export const fetchWeather = async (city) => {

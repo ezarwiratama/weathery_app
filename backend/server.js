@@ -8,6 +8,9 @@ connectDB();
 
 app.use(cors());
 app.use(express.json());
+app.get('/', (req, res) => {
+  res.send('Weathery backend is up and running!');
+});
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/user', require('./routes/users'));
 
