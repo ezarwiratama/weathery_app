@@ -7,6 +7,8 @@ import {
 } from "@mui/material";
 import {
   Chart as ChartJS,
+  BarController,
+  BarElement,
   CategoryScale,
   LinearScale,
   BarElement,
@@ -18,7 +20,7 @@ import {
 import { Chart } from "react-chartjs-2";
 
 ChartJS.register(
-  // BarController,
+  BarController,
   BarElement,
   CategoryScale,
   LinearScale,
