@@ -14,11 +14,13 @@ import {
   LineElement,
   PointElement,
   Tooltip,
-  Legend
+  Legend,
+  registerables
 } from "chart.js";
 import { Chart } from "react-chartjs-2";
 
 ChartJS.register(
+  registerables,
   BarController,
   BarElement,
   CategoryScale,
