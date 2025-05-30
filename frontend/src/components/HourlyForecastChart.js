@@ -18,6 +18,8 @@ import {
 import { Chart } from "react-chartjs-2";
 
 ChartJS.register(
+  BarController,
+  BarElement,
   CategoryScale,
   LinearScale,
   BarElement,
