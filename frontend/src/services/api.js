@@ -99,7 +99,7 @@ export const fetchWeatherByCoords = async (lat, lon) => {
 // ==================== AUTH APIs ====================
 export const registerUser = async ({ username, email, password }) => {
   try {
-    const res = await axios.post(`${BACKEND_BASE_URL}/auth/register`, {
+    const res = await axios.post(`${BACKEND_BASE_URL}/api/auth/register`, {
       username,
       email,
       password,
@@ -112,7 +112,7 @@ export const registerUser = async ({ username, email, password }) => {
 
 export const loginUser = async ({ username, password }) => {
   try {
-    const res = await axios.post(`${BACKEND_BASE_URL}/auth/login`, {
+    const res = await axios.post(`${BACKEND_BASE_URL}/api/auth/login`, {
       username,
       password,
     });
@@ -144,7 +144,7 @@ export const loginUser = async ({ username, password }) => {
 export const addFavoriteCity = async (city, token) => {
   try {
     const res = await axios.post(
-      `${BACKEND_BASE_URL}/user/favorite`,
+      `${BACKEND_BASE_URL}/api/user/favorite`,
       { city },
       {
         headers: {
@@ -160,7 +160,7 @@ export const addFavoriteCity = async (city, token) => {
 
 export const fetchFavoriteCities = async (token) => {
   try {
-    const res = await axios.get(`${BACKEND_BASE_URL}/user/favorite`, {
+    const res = await axios.get(`${BACKEND_BASE_URL}/api/user/favorite`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -175,7 +175,7 @@ export const fetchFavoriteCities = async (token) => {
 export const checkFavoriteCity = async (city, token) => {
   try {
     const res = await axios.get(
-      `${BACKEND_BASE_URL}/user/favorite/check/${city}`,
+      `${BACKEND_BASE_URL}/api/user/favorite/check/${city}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -193,7 +193,7 @@ export const checkFavoriteCity = async (city, token) => {
 export const removeFavoriteCity = async (city, token) => {
   try {
     const res = await axios.delete(
-      `${BACKEND_BASE_URL}/user/favorite/${city}`,
+      `${BACKEND_BASE_URL}/api/user/favorite/${city}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -220,7 +220,7 @@ export const fetchWeatherByCity = async (city) => {
 
 export const getProfile = async (token) => {
   try {
-    const res = await axios.get(`${BACKEND_BASE_URL}/auth/profile`, {
+    const res = await axios.get(`${BACKEND_BASE_URL}/api/auth/profile`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -233,7 +233,7 @@ export const getProfile = async (token) => {
 
 export const updateProfile = async (data, token) => {
   try {
-    const res = await axios.put(`${BACKEND_BASE_URL}/auth/profile`, data, {
+    const res = await axios.put(`${BACKEND_BASE_URL}/api/auth/profile`, data, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
