@@ -2,7 +2,7 @@ import axios from "axios";
 
 const WEATHER_API_KEY = "958dc09de91b935b6f25d17fec6b4f8b";
 const WEATHER_BASE_URL = "https://api.openweathermap.org/data/2.5";
-const BACKEND_BASE_URL = "https://weatheryapp-production.up.railway.app"; // Ganti kalau deploy
+const BACKEND_BASE_URL = "https://weatheryapp-production.up.railway.app";
 
 // ==================== WEATHER APIs ====================
 export const fetchWeather = async (city) => {
@@ -121,24 +121,6 @@ export const loginUser = async ({ username, password }) => {
     throw error.response?.data || { message: "Login failed" };
   }
 };
-
-// export const getProfile = async (token) => {
-//   const res = await axios.get(`${BACKEND_BASE_URL}/auth/profile`, {
-//     headers: {
-//       Authorization: `Bearer ${token}`,
-//     },
-//   });
-//   return res.data;
-// };
-
-// export const updateProfile = async (data, token) => {
-//   const res = await axios.put(`${BACKEND_BASE_URL}/auth/profile`, data, {
-//     headers: {
-//       Authorization: `Bearer ${token}`,
-//     },
-//   });
-//   return res.data;
-// };
 
 // ==================== FAVORITE CITIES APIs ====================
 export const addFavoriteCity = async (city, token) => {
