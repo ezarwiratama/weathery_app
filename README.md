@@ -58,7 +58,3 @@ npm start
 
 🤝 Kontribusi
 Kontribusi sangat diterima! Jika Anda memiliki saran, perbaikan bug, atau fitur baru, silakan buat issue atau pull request.
-
-
-📄 Lisensi
-Proyek ini dilisensikan di bawah MIT License.
