@@ -1,6 +1,6 @@
 # 🌤️ Weathery App
 
-Weathery adalah aplikasi cuaca berbasis web yang dikembangkan menggunakan stack MERN (MongoDB, Express.js, React.js, Node.js). Aplikasi ini menyediakan informasi cuaca terkini berdasarkan lokasi pengguna atau kota yang dicari.
+**Weathery** adalah aplikasi cuaca berbasis web yang dikembangkan menggunakan stack MERN (**MongoDB, Express.js, React.js, Node.js**) dengan library **Material-UI**. Aplikasi ini menyediakan informasi cuaca terkini berdasarkan lokasi pengguna atau kota yang dicari. Project ini merupakan **Tugas Akhir** mata kuliah **Rekayasa Perangkat Lunak** yang saya ambil pada **Semester 4** di **Teknik Komputer Undip**
 
 # 🔗 Demo
 
